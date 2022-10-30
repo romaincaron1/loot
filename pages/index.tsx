@@ -17,9 +17,13 @@ const Home: NextPage = () => {
 				<title>Loot</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="flex min-h-full">
+			<div className="flex min-h-full relative">
 				<Navbar current="home" />
-				{connected ? <ConnectedHome /> : <NotConnectedHome setConnected={setConnected} />}
+				{connected ? (
+					<ConnectedHome />
+				) : (
+					<NotConnectedHome setConnected={setConnected} />
+				)}
 				<div className="hidden md:block md:h-screen md:w-full relative">
 					<Image src={background} layout="fill" objectFit="cover" />
 				</div>

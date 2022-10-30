@@ -5,6 +5,7 @@ import { MdDashboard, MdLeaderboard, MdSettings } from "react-icons/md";
 import { RiSwordFill } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { TbSportBillard } from "react-icons/tb";
+import Link from "next/link";
 
 interface props {
 	current: "home" | "coinflip" | "roulette" | "leaderboard" | "notifications";
@@ -28,57 +29,54 @@ function Navbar({ current }: props) {
 	}, [wrapperRef]);
 
 	return (
-		<div className="pr-20">
+		<div className="pr-20 z-50">
 			<div className="bg-[#181B23] fixed h-screen max-h-screen w-20 pl-4 pr-4 flex flex-col justify-between">
 				<div className="flex justify-center mt-4">
 					<Image src={logo} height="68" width="55" />
 				</div>
 				<div className="flex align-middle justify-center flex-col w-full gap-4 mt-16">
-					<MdDashboard
-						onClick={() => {
-							window.location.href = "/";
-						}}
-						className={`text-white self-center hover:cursor-pointer ${
-							current === "home" ? "bg-blue-500 rounded-full p-2" : ""
-						}`}
-						size={current === "home" ? 50 : 35}
-					/>
-					<RiSwordFill
-						onClick={() => {
-							window.location.href = "/coinflip";
-						}}
-						className={`text-white self-center hover:cursor-pointer ${
-							current === "coinflip" ? "bg-blue-500 rounded-full p-2" : ""
-						}`}
-						size={current === "coinflip" ? 50 : 35}
-					/>
-					<TbSportBillard
-						onClick={() => {
-							window.location.href = "/roulette";
-						}}
-						className={`text-white self-center hover:cursor-pointer ${
-							current === "roulette" ? "bg-blue-500 rounded-full p-2" : ""
-						}`}
-						size={current === "roulette" ? 50 : 40}
-					/>
-					<IoMdNotifications
-						onClick={() => {
-							window.location.href = "/notifications";
-						}}
-						className={`text-white self-center hover:cursor-pointer ${
-							current === "notifications" ? "bg-blue-500 rounded-full p-2" : ""
-						}`}
-						size={current === "notifications" ? 50 : 35}
-					/>
-					<MdLeaderboard
-						onClick={() => {
-							window.location.href = "/leaderboard";
-						}}
-						className={`text-white self-center hover:cursor-pointer ${
-							current === "leaderboard" ? "bg-blue-500 rounded-full p-2" : ""
-						}`}
-						size={current === "leaderboard" ? 50 : 35}
-					/>
+					<Link href={"/"}>
+						<MdDashboard
+							className={`text-white self-center hover:cursor-pointer ${
+								current === "home" ? "bg-blue-500 rounded-full p-2" : ""
+							}`}
+							size={current === "home" ? 50 : 35}
+						/>
+					</Link>
+					<Link href={"/coinflip"}>
+						<RiSwordFill
+							className={`text-white self-center hover:cursor-pointer ${
+								current === "coinflip" ? "bg-blue-500 rounded-full p-2" : ""
+							}`}
+							size={current === "coinflip" ? 50 : 35}
+						/>
+					</Link>
+					<Link href={"/roulette"}>
+						<TbSportBillard
+							className={`text-white self-center hover:cursor-pointer ${
+								current === "roulette" ? "bg-blue-500 rounded-full p-2" : ""
+							}`}
+							size={current === "roulette" ? 50 : 40}
+						/>
+					</Link>
+					<Link href={"/notifications"}>
+						<IoMdNotifications
+							className={`text-white self-center hover:cursor-pointer ${
+								current === "notifications"
+									? "bg-blue-500 rounded-full p-2"
+									: ""
+							}`}
+							size={current === "notifications" ? 50 : 35}
+						/>
+					</Link>
+					<Link href={"leaderboard"}>
+						<MdLeaderboard
+							className={`text-white self-center hover:cursor-pointer ${
+								current === "leaderboard" ? "bg-blue-500 rounded-full p-2" : ""
+							}`}
+							size={current === "leaderboard" ? 50 : 35}
+						/>
+					</Link>
 				</div>
 				<div className="flex align-middle justify-center flex-col w-full mt-20 mb-4">
 					<MdSettings
@@ -91,7 +89,7 @@ function Navbar({ current }: props) {
 				<div
 					className={`${
 						modalOpenned ? null : "hidden"
-					} fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-40`}
+					} fixed left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-40`}
 				>
 					<div
 						ref={wrapperRef}

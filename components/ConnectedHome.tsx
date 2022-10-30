@@ -26,7 +26,7 @@ function ConnectedHome() {
 				<a href="/fairness" className="hover:opacity-90 transition">
 					FAIRNESS
 				</a>
-				<a href="" className="hover:opacity-90 transition">
+				<a href="https://github.com/romaincaron1/loot" target="_blank" className="hover:opacity-90 transition">
 					GITHUB
 				</a>
 			</ul>
