@@ -120,7 +120,7 @@ function index() {
 														BETS
 													</p>
 													<p className="self-center font-bold tracking-wide">
-														X2
+														X14
 													</p>
 												</div>
 												<div className="pb-4">
