@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 contract Roulette {
 
     // Variables
-    uint constant game_duration = 60; // 0 minute
+    uint constant game_duration = 60; // 1 minute
     uint expiration_time;
     uint balance;
 
@@ -53,12 +53,13 @@ contract Roulette {
     // expiration_time must be 0
     // or
     // expiration_time must be > current_timestamp
+    // 20 players max
+    // a player can't join 2 times
     function join(coin _betCoin) external payable {
         require(msg.value > 0, "You cannot join the game with no funds");
         require(expiration_time == 0 || expiration_time + game_duration > block.timestamp, "Game expired");
        
         uint players_len = players.length;
-
         require(players_len <= 20, "Too many players in this game (max 20)");
 
         // Verifying sender existence in players
@@ -78,8 +79,6 @@ contract Roulette {
 
         // first join
         if (expiration_time == 0) {
-            delete players;
-            delete winners;
             expiration_time = block.timestamp + game_duration;
         }
     }
@@ -133,7 +132,3 @@ contract Roulette {
         delete expiration_time;
     }
 }
-
-// TODO: player can't join 2 times the same game
-// TODO: totalLoss wrong value
-// TODO: remove balance variable
