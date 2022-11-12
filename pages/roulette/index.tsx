@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Informations from "../../components/Informations";
 import Navbar from "../../components/Navbar";
 import TopHeader from "../../components/TopHeader";
@@ -17,11 +17,69 @@ import { FaEthereum } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 
 function index() {
+	const positions = [10, 115, 220, 325, 430, 535, 640, 745, 850];
+	const timings = [50, 100, 300];
+
 	const [connected, setConnected] = useState(false);
 	const [redCoinSelected, setRedCoinSelected] = useState(false);
 	const [goldCoinSelected, setGoldCoinSelected] = useState(false);
 	const [blueCoinSelected, setBlueCoinSelected] = useState(false);
 	const [joinGameAmountBet, setJoinGameAmountBet] = useState("");
+	const [gameState, setGameState] = useState(1);
+	const [timing, setTiming] = useState(timings[0]);
+	const [indexes, setIndexes] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8])
+	const [pick, setPick] = useState(false);
+
+	const resetGame = () => {
+		setTiming(timings[0]);
+		setIndexes([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+		setGameState(0);
+	}
+
+	useEffect(() => {
+		if (gameState === 1) {
+			setTimeout(() => {
+				let temp:number[] = [];
+				indexes.map((index) => {
+					if (index+1 < positions.length) {
+						temp.push(index+1);
+					} else {
+						temp.push(0);
+					}
+				})
+				setIndexes(temp);
+			}, timing);
+		}
+	}, [indexes, gameState]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setTiming(timings[1]);
+		}, 2000)
+	}, [])
+
+	useEffect(() => {
+		setTimeout(() => {
+			setTiming(timings[2]);
+		}, 4000)
+	}, [])
+
+	useEffect(() => {
+		setTimeout(() => {
+			setPick(true);
+		}, 6000)
+	}, [])
+
+	useEffect(() => {
+		if (pick) {
+			// 3 gold coin
+			// 4 blue coin
+			// 5 red coin
+			if (indexes[4] === 5) {
+				setGameState(0);
+			}
+		}
+	}, [pick, indexes])
 
 	return (
 		<div className="min-h-screen">
@@ -37,33 +95,34 @@ function index() {
 					<div>
 						<TopHeader connected={connected} setConnected={setConnected} />
 						<main className="mt-8">
-							<div className="w-full bg-[#181B23] relative pt-2 flex roulette shadow-2xl shadow-[#32394A]">
-								<div>
-									<Image src={redcoin} width={110} />
+							<div className="w-full h-32 bg-[#181B23] relative pt-2 flex roulette shadow-2xl shadow-[#32394A]">
+								<div className="absolute" style={{left: positions[indexes[0]]}}>
+									<Image src={redcoin} width={105} />
 								</div>
-								<div>
-									<Image src={bluecoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[1]]}}>
+									<Image src={bluecoin} width={105} />
 								</div>
-								<div>
-									<Image src={redcoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[2]]}}>
+									<Image src={redcoin} width={105} />
 								</div>
-								<div>
-									<Image src={bluecoin} width={110} />
+								
+								<div className="absolute" style={{left: positions[indexes[3]]}}>
+									<Image src={bluecoin} width={105} />
 								</div>
-								<div>
+								<div className="absolute pl-2" style={{left: positions[indexes[4]]}}>
 									<Image src={goldcoin} width={90} />
 								</div>
-								<div>
-									<Image src={bluecoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[5]]}}>
+									<Image src={redcoin} width={105} />
 								</div>
-								<div>
-									<Image src={redcoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[6]]}}>
+									<Image src={bluecoin} width={105} />
 								</div>
-								<div>
-									<Image src={bluecoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[7]]}}>
+									<Image src={redcoin} width={105} />
 								</div>
-								<div>
-									<Image src={redcoin} width={110} />
+								<div className="absolute" style={{left: positions[indexes[8]]}}>
+									<Image src={bluecoin} width={105} />
 								</div>
 							</div>
 							<div className="lg:p-8 p-4 w-full">

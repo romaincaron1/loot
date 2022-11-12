@@ -15,6 +15,7 @@ function Navbar({ current }: props) {
 	const [modalOpenned, setModalOpenned] = useState(false);
 	const [notificationChecked, setNotificationChecked] = useState(true);
 	const wrapperRef: React.RefObject<HTMLInputElement> = useRef(null);
+	
 
 	useEffect(() => {
 		function handleClickOutside(event: any) {

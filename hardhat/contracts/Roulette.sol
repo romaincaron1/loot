@@ -7,6 +7,12 @@ contract Roulette {
     uint constant game_duration = 60; // 1 minute
     uint expiration_time;
     uint balance;
+    uint initialBalance;
+    address owner;
+
+    // Enums
+    enum coin { RED, GOLD, BLUE }
+    enum game_state { INACTIVE, ACTIVE }
 
     // Structs
     struct Player {
@@ -24,12 +30,18 @@ contract Roulette {
     event playerHasWin(address _player, uint _amount);
     event gameHasEnded(uint _winnerCoin, uint _amountWon, uint _amountLost);
 
-    // Enums
-    enum coin { RED, GOLD, BLUE }
-    enum game_state { INACTIVE, ACTIVE }
-
+    // balance initialization
+    // owner initialization
     constructor() payable {
         balance = msg.value;
+        initialBalance = balance;
+        owner = msg.sender;
+    }
+
+    // only owner can access the function
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
     }
 
     function getBalance() public view returns(uint) {
@@ -37,6 +49,7 @@ contract Roulette {
     }
 
     function getRemainingTime() external view returns(uint) {
+        require(expiration_time != 0, "No game in progress");
         return expiration_time - block.timestamp;
     }
     
@@ -131,4 +144,22 @@ contract Roulette {
         delete winners;
         delete expiration_time;
     }
+
+    // if there is funds to withdraw
+    // send funds to the owner
+    function withdraw() external onlyOwner {
+        require(balance > initialBalance, "Nothing to withdraw");
+        payable(msg.sender).transfer(balance - initialBalance);
+    }
+
+    // add funds to the balance
+    function addFunds() external payable onlyOwner {
+        balance += msg.value;
+    }
+
+    // Destroy and send rest to the owner
+    function destroy() external onlyOwner {
+        selfdestruct(payable(owner));
+    }
+
 }
