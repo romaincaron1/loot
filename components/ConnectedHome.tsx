@@ -1,20 +1,31 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import pfp from "../public/pfp.png";
 import { BsDot } from "react-icons/bs";
 import { IoMdCopy } from "react-icons/io";
 import {
-    NotificationContainer,
+	NotificationContainer,
 	NotificationManager,
-    // @ts-ignore
+	// @ts-ignore
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
-function ConnectedHome() {
+interface props {
+	user: {
+		username: string;
+	};
+}
+
+function ConnectedHome({ user }: props) {
 	const handleCopy = () => {
 		NotificationManager.info("Copied address !");
-        navigator.clipboard.writeText("0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc")
+		navigator.clipboard.writeText("0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc");
 	};
+
+	// TODO: context setUser : (user: user type)
+	// TODO: connect to wallet
+	// TODO: global function public key => xxxx...xxxx
+	// TODO: add db fields (subcollection per game => wins, loss, ... )
 
 	return (
 		<div className="w-full md:w-[500px]">
@@ -26,7 +37,11 @@ function ConnectedHome() {
 				<a href="/fairness" className="hover:opacity-90 transition">
 					FAIRNESS
 				</a>
-				<a href="https://github.com/romaincaron1/loot" target="_blank" className="hover:opacity-90 transition">
+				<a
+					href="https://github.com/romaincaron1/loot"
+					target="_blank"
+					className="hover:opacity-90 transition"
+				>
 					GITHUB
 				</a>
 			</ul>
@@ -56,7 +71,7 @@ function ConnectedHome() {
 					</div>
 					<h1 className="font-bold text-[2rem]">
 						WELCOME BACK <br />
-						<span className="text-[#FE881A]">SVEIN</span>.
+						<span className="text-[#FE881A]">{user.username.toUpperCase()}</span>.
 					</h1>
 					<button className="bg-[#FE881A] hover:opacity-90 transition rounded-3xl p-2 font-bold">
 						MY PROFILE

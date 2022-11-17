@@ -15,7 +15,24 @@ function Navbar({ current }: props) {
 	const [modalOpenned, setModalOpenned] = useState(false);
 	const [notificationChecked, setNotificationChecked] = useState(true);
 	const wrapperRef: React.RefObject<HTMLInputElement> = useRef(null);
-	
+
+	useEffect(() => {
+		if (localStorage.getItem("notifications") === "false") {
+			setNotificationChecked(false);
+		} else if (localStorage.getItem("notifications") === "true") {
+			setNotificationChecked(true);
+		}
+	}, []);
+
+	const handleNotifications = () => {
+		const newState = !notificationChecked;
+		setNotificationChecked(newState);
+		if (newState) {
+			localStorage.setItem("notifications", "true");
+		} else {
+			localStorage.setItem("notifications", "false");
+		}
+	};
 
 	useEffect(() => {
 		function handleClickOutside(event: any) {
@@ -113,7 +130,7 @@ function Navbar({ current }: props) {
 							<input
 								checked={notificationChecked}
 								type="checkbox"
-								onChange={() => setNotificationChecked(!notificationChecked)}
+								onChange={handleNotifications}
 								className="self-center w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 							/>
 						</div>

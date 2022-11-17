@@ -1,15 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ConnectedHome from "../components/ConnectedHome";
 import Informations from "../components/Informations";
 import Navbar from "../components/Navbar";
 import NotConnectedHome from "../components/NotConnectedHome";
 import background from "../public/background.png";
+import userContext from "../contexts/userContext";
 
 const Home: NextPage = () => {
-	const [connected, setConnected] = useState(false);
+	const { user, setUser } = useContext(userContext);
 
 	return (
 		<div className="min-h-screen">
@@ -19,10 +20,10 @@ const Home: NextPage = () => {
 			</Head>
 			<div className="flex min-h-full relative">
 				<Navbar current="home" />
-				{connected ? (
-					<ConnectedHome />
+				{user.username ? (
+					<ConnectedHome user={user} />
 				) : (
-					<NotConnectedHome setConnected={setConnected} />
+					<NotConnectedHome setUser={setUser} />
 				)}
 				<div className="hidden md:block md:h-screen md:w-full relative">
 					<Image src={background} layout="fill" objectFit="cover" />

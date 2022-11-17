@@ -1,6 +1,11 @@
 import React from "react";
+import ConnectButton from "./ConnectButton";
 
-function NotConnectedHome({ setConnected } : any) {
+interface props {
+	setUser: Function,
+}
+
+function NotConnectedHome({ setUser }: props) {
 	return (
 		<div className="w-full md:w-[500px]">
 			<ul className="w-full flex justify-center pt-10 gap-4 mr-4 text-xs font-bold tracking-wide">
@@ -24,9 +29,7 @@ function NotConnectedHome({ setConnected } : any) {
 						Connect with metamask and start playing <br /> our games to earn
 						crypto !
 					</h4>
-					<button onClick={() => setConnected(true)} className="bg-[#FE881A] hover:opacity-90 transition rounded-3xl p-2 font-bold">
-						CONNECT WITH METAMASK
-					</button>
+					<ConnectButton setUser={setUser} />
 				</div>
 			</div>
 		</div>
