@@ -1,12 +1,13 @@
 import { createContext } from "react";
 
 interface user {
-  username: string,
+  key: string;
+  username: string;
 }
 
 const userContext = createContext({
   user: {} as user,
-  setUser: (auth: any) => {}
+  setUser: (user: user) => {}
 });
 
 export default userContext;

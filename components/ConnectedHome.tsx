@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import pfp from "../public/pfp.png";
 import { BsDot } from "react-icons/bs";
 import { IoMdCopy } from "react-icons/io";
@@ -9,7 +9,6 @@ import {
 	// @ts-ignore
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-
 interface props {
 	user: {
 		username: string;
@@ -22,8 +21,6 @@ function ConnectedHome({ user }: props) {
 		navigator.clipboard.writeText("0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc");
 	};
 
-	// TODO: context setUser : (user: user type)
-	// TODO: connect to wallet
 	// TODO: global function public key => xxxx...xxxx
 	// TODO: add db fields (subcollection per game => wins, loss, ... )
 
