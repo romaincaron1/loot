@@ -9,8 +9,11 @@ import {
 	// @ts-ignore
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import keyMinifier from "../services/keyMinifier";
+
 interface props {
 	user: {
+		key: string;
 		username: string;
 	};
 }
@@ -18,10 +21,9 @@ interface props {
 function ConnectedHome({ user }: props) {
 	const handleCopy = () => {
 		NotificationManager.info("Copied address !");
-		navigator.clipboard.writeText("0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc");
+		navigator.clipboard.writeText(user.key);
 	};
 
-	// TODO: global function public key => xxxx...xxxx
 	// TODO: add db fields (subcollection per game => wins, loss, ... )
 
 	return (
@@ -55,7 +57,7 @@ function ConnectedHome({ user }: props) {
 							</span>
 							<span className="flex gap-6">
 								<h6 className="self-center text-xs text-[#636363]">
-									0x99655...
+									{keyMinifier(user.key)}
 								</h6>
 								<IoMdCopy
 									onClick={handleCopy}
@@ -68,7 +70,7 @@ function ConnectedHome({ user }: props) {
 					</div>
 					<h1 className="font-bold text-[2rem]">
 						WELCOME BACK <br />
-						<span className="text-[#FE881A]">{user.username.toUpperCase()}</span>.
+						<span className="text-[#FE881A]">{user.username.length > 10 ? keyMinifier(user.username) : user.username.toUpperCase()}</span>.
 					</h1>
 					<button className="bg-[#FE881A] hover:opacity-90 transition rounded-3xl p-2 font-bold">
 						MY PROFILE
