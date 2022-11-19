@@ -12,10 +12,7 @@ import "react-notifications/lib/notifications.css";
 import keyMinifier from "../services/keyMinifier";
 
 interface props {
-	user: {
-		key: string;
-		username: string;
-	};
+	user: user
 }
 
 function ConnectedHome({ user }: props) {
@@ -25,6 +22,9 @@ function ConnectedHome({ user }: props) {
 	};
 
 	// TODO: add db fields (subcollection per game => wins, loss, ... )
+	// TODO: add footer
+	// TODO: connection on every pages
+	// TODO: coinflip
 
 	return (
 		<div className="w-full md:w-[500px]">
@@ -48,7 +48,7 @@ function ConnectedHome({ user }: props) {
 				<div className="max-w-[400px] p-4 flex flex-col gap-6">
 					<div className="flex gap-4">
 						<div className="w-[100px]">
-							<Image className="rounded-full" src={pfp} layout="responsive" />
+							<Image className="rounded-full" src={user.image} width={100} height={100} layout="responsive" />
 						</div>
 						<div className="flex flex-col self-end">
 							<span className="flex">

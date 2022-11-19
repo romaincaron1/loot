@@ -22,6 +22,7 @@ function ConnectButton({ setUser }: props) {
 				const user = {
 					key: pk,
 					username: pk,
+					image: `https://robohash.org/${pk}`,
 				}
 				db.collection("users").doc(pk).set(user);
 				sessionStorage.setItem('user', JSON.stringify(user));

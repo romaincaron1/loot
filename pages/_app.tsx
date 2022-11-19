@@ -4,15 +4,16 @@ import userContext from "../contexts/userContext";
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 
-interface user {
-	key: string;
-	username: string;
-}
-
 declare global {
 	interface Window {
 		ethereum?: any;
 		web3?: any;
+	}
+
+	interface user {
+		key: string;
+		username: string;
+		image: string;
 	}
 }
 
