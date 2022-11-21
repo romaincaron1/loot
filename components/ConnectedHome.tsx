@@ -21,9 +21,8 @@ function ConnectedHome({ user }: props) {
 		navigator.clipboard.writeText(user.key);
 	};
 
-	// TODO: profile page
-	// TODO: add footer
 	// TODO: on account change event
+	// TODO: add footer
 	// TODO: connection on every pages
 	// TODO: coinflip
 

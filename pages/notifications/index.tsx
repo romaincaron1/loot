@@ -10,7 +10,7 @@ function index() {
 	return (
 		<div className="min-h-screen">
 			<Head>
-				<title>Loot - Coinflip</title>
+				<title>Loot - Notifications</title>
 			</Head>
 			<Informations current="notifications" />
 			<div className="parent">

@@ -41,9 +41,9 @@ function Profile() {
 				<Head>
 					<title>Loot - Profile</title>
 				</Head>
-				<Informations current="home" />
+				<Informations current="profile" />
 				<div className="parent">
-					<Navbar current="home" />
+					<Navbar current="profile" />
 					<div className="div3">
 						<TopHeader />
 					</div>

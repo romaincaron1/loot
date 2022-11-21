@@ -38,6 +38,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 			}
 		};
 		getCurrentUser();
+
+		window.ethereum.on("accountsChanged", function (accounts: any) {
+			window.location.reload();
+		});
 	}, []);
 
 	return (
