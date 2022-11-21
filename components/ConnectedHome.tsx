@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import pfp from "../public/pfp.png";
 import { BsDot } from "react-icons/bs";
 import { IoMdCopy } from "react-icons/io";
 import {
@@ -21,8 +21,9 @@ function ConnectedHome({ user }: props) {
 		navigator.clipboard.writeText(user.key);
 	};
 
-	// TODO: add db fields (subcollection per game => wins, loss, ... )
+	// TODO: profile page
 	// TODO: add footer
+	// TODO: on account change event
 	// TODO: connection on every pages
 	// TODO: coinflip
 
@@ -72,9 +73,9 @@ function ConnectedHome({ user }: props) {
 						WELCOME BACK <br />
 						<span className="text-[#FE881A]">{user.username.length > 10 ? keyMinifier(user.username) : user.username.toUpperCase()}</span>.
 					</h1>
-					<button className="bg-[#FE881A] hover:opacity-90 transition rounded-3xl p-2 font-bold">
-						MY PROFILE
-					</button>
+					<Link href={"/profile"}>
+						<a className="bg-[#FE881A] hover:opacity-90 transition rounded-3xl p-2 font-bold text-center">MY PROFILE</a>
+					</Link>
 				</div>
 			</div>
 		</div>

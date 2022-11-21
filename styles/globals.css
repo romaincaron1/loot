@@ -6,12 +6,9 @@
 body {
 	font-family: "Inter", sans-serif;
 
-	background-color: #181b23;
-	color: #fff;
-}
-
-.background {
 	background: hsla(222, 21%, 16%, 1);
+
+	color: #fff;
 
 	background: linear-gradient(
 		90deg,
@@ -37,21 +34,64 @@ body {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 
 .roulette::after {
-	content: '';
+	content: "";
 	width: 3px;
 	height: 100%;
 	background-color: #7b7b7b;
 	position: absolute;
 	top: 0;
 	left: 50%;
+}
+
+.parent {
+	display: grid;
+	grid-template-columns: 0.5fr repeat(11, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	grid-column-gap: 1px;
+	grid-row-gap: 0px;
+}
+
+.div1 {
+	grid-area: 1 / 1 / 7 / 2;
+}
+.div2 {
+	grid-area: 1 / 10 / 7 / 13;
+}
+.div3 {
+	grid-area: 1 / 2 / 2 / 10;
+}
+.div4 {
+	grid-area: 2 / 2 / 7 / 10;
+}
+
+@media only screen and (max-width: 1015px) {
+	.parent {
+		display: grid;
+		grid-template-columns: 0.5fr repeat(11, 1fr);
+		grid-template-rows: 0.5fr repeat(5, 1fr);
+		grid-column-gap: 1px;
+		grid-row-gap: 0px;
+		}
+	.div1 {
+		grid-area: 1 / 1 / 7 / 2;
+	}
+	.div2 {
+		grid-area: 5 / 2 / 7 / 13;
+	}
+	.div3 {
+		grid-area: 1 / 2 / 2 / 13;
+	}
+	.div4 {
+		grid-area: 2 / 2 / 5 / 13;
+	}
 }

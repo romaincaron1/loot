@@ -40,8 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 		getCurrentUser();
 	}, []);
 
-	useEffect(() => {}, []);
-
 	return (
 		<userContext.Provider value={{ user, setUser }}>
 			<Component {...pageProps} />

@@ -1,20 +1,29 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "../public/logo.png";
 import { MdDashboard, MdLeaderboard, MdSettings } from "react-icons/md";
 import { RiSwordFill } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { TbSportBillard } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
+import userContext from "../contexts/userContext";
 
 interface props {
-	current: "home" | "coinflip" | "roulette" | "leaderboard" | "notifications";
+	current:
+		| "home"
+		| "coinflip"
+		| "roulette"
+		| "leaderboard"
+		| "notifications"
+		| "profile";
 }
 
 function Navbar({ current }: props) {
 	const [modalOpenned, setModalOpenned] = useState(false);
 	const [notificationChecked, setNotificationChecked] = useState(true);
 	const wrapperRef: React.RefObject<HTMLInputElement> = useRef(null);
+	const { user } = useContext(userContext);
 
 	useEffect(() => {
 		if (localStorage.getItem("notifications") === "false") {
@@ -47,7 +56,7 @@ function Navbar({ current }: props) {
 	}, [wrapperRef]);
 
 	return (
-		<div className="pr-20 z-50">
+		<div className="z-50 div1 pr-20">
 			<div className="bg-[#181B23] fixed h-screen max-h-screen w-20 pl-4 pr-4 flex flex-col justify-between">
 				<div className="flex justify-center mt-4">
 					<Image src={logo} height="68" width="55" />
@@ -95,6 +104,16 @@ function Navbar({ current }: props) {
 							size={current === "leaderboard" ? 50 : 35}
 						/>
 					</Link>
+					{user.key ? (
+						<Link href={"profile"}>
+							<FaUserCircle
+								className={`text-white self-center hover:cursor-pointer ${
+									current === "profile" ? "bg-blue-500 rounded-full p-2" : ""
+								}`}
+								size={current === "profile" ? 50 : 35}
+							/>
+						</Link>
+					) : null}
 				</div>
 				<div className="flex align-middle justify-center flex-col w-full mt-20 mb-4">
 					<MdSettings

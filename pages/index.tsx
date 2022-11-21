@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 				<title>Loot</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="flex min-h-full relative">
+			<div className="flex min-h-screen relative bg-[#181b23]">
 				<Navbar current="home" />
 				{user.username ? (
 					<ConnectedHome user={user} />

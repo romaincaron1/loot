@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {
-	MdDashboard,
-	MdLeaderboard,
-	MdSettings,
-} from "react-icons/md";
+import { MdDashboard, MdLeaderboard } from "react-icons/md";
 import { RiSwordFill } from "react-icons/ri";
-import { IoMdNotifications } from "react-icons/io";
 import { TbSportBillard } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
+import { IoMdNotifications } from "react-icons/io";
 
 interface props {
-	current: "home" | "coinflip" | "roulette" | "leaderboard" | "notifications";
+	current:
+		| "home"
+		| "coinflip"
+		| "roulette"
+		| "leaderboard"
+		| "notifications"
+		| "profile";
 }
 
 function Informations({ current }: props) {
@@ -31,7 +34,7 @@ function Informations({ current }: props) {
 		<div className="hidden lg:block">
 			<div className="bg-[#424956] absolute top-4 right-4 h-16 pr-4 pl-4 rounded-lg flex align-middle gap-2 font-bold">
 				<span className="self-center">
-					{hour}:{minutes.toString().length > 1 ? minutes : `0${minutes}`} 
+					{hour}:{minutes.toString().length > 1 ? minutes : `0${minutes}`}
 				</span>
 				<span className="text-[#FE881A] self-center">|</span>
 				<span className="self-center">LOOT</span>
@@ -51,6 +54,24 @@ function Informations({ current }: props) {
 				) : null}
 				{current === "roulette" ? (
 					<TbSportBillard
+						className="text-white self-center bg-blue-500 rounded-full p-2"
+						size={35}
+					/>
+				) : null}
+				{current === "profile" ? (
+					<FaUserCircle
+						className="text-white self-center bg-blue-500 rounded-full p-2"
+						size={35}
+					/>
+				) : null}
+				{current === "leaderboard" ? (
+					<MdLeaderboard
+						className="text-white self-center bg-blue-500 rounded-full p-2"
+						size={35}
+					/>
+				) : null}
+				{current === "notifications" ? (
+					<IoMdNotifications
 						className="text-white self-center bg-blue-500 rounded-full p-2"
 						size={35}
 					/>

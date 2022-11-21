@@ -1,45 +1,67 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { BsDot } from "react-icons/bs";
 import { IoMdCopy } from "react-icons/io";
 import { FaEthereum } from "react-icons/fa";
 import {
-	NotificationContainer,
 	NotificationManager,
 	// @ts-ignore
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import pfp from "../public/pfp.png";
+import userContext from "../contexts/userContext";
+import keyMinifier from "../services/keyMinifier";
+import ConnectButton from "./ConnectButton";
+import Web3 from "web3";
+import EthBalanceText from "./EthBalanceText";
 
-interface props {
-	connected: any;
-	setConnected: any;
-}
+function TopHeader() {
+	const { user, setUser } = useContext(userContext);
+	const [balance, setBalance] = useState("");
 
-function TopHeader({ connected, setConnected }: props) {
+	useEffect(() => {
+		const fetchBalance = async () => {
+			if (window.web3 && user.key) {
+				try {
+					window.web3 = new Web3(window.ethereum);
+					const balance = await window.web3.eth.getBalance(user.key);
+					setBalance(balance);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+		};
+		fetchBalance();
+	}, [user.key]);
+
 	const handleCopy = () => {
 		NotificationManager.info("Copied address !");
-		navigator.clipboard.writeText("0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc");
+		navigator.clipboard.writeText(user.key);
 	};
 
 	return (
 		<header className="w-full h-32 p-8">
-			{connected ? (
+			{user.key ? (
 				<>
 					<div className="flex align-middle justify-between">
 						<div className="flex gap-4">
 							<div className="w-[100px]">
-								<Image className="rounded-full" src={pfp} layout="responsive" />
+								<Image
+									className="rounded-full"
+									src={user.image}
+									width={100}
+									height={100}
+									layout="responsive"
+								/>
 							</div>
 							<div className="flex flex-col self-center">
-								<span className="font-bold text-lg mt-2">SVEIN</span>
+								<span className="font-bold text-lg mt-2">{user.username.length > 10 ? keyMinifier(user.username) : user.username.toUpperCase()}</span>
 								<span className="flex">
 									<BsDot className="ml-[-17px] text-green-400" size={40} />{" "}
 									<h5 className="self-center font-bold">online</h5>
 								</span>
 								<span className="flex gap-6">
 									<h6 className="self-center text-xs text-[#636363]">
-										0x99655...
+										{keyMinifier(user.key)}
 									</h6>
 									<IoMdCopy
 										onClick={handleCopy}
@@ -52,25 +74,12 @@ function TopHeader({ connected, setConnected }: props) {
 						</div>
 						<div className="self-center flex flex-col gap-2 font-bold text-center">
 							<span>BALANCE</span>
-							<div className="flex gap-2">
-								<FaEthereum
-									className="self-center bg-[#627eea] rounded-full p-1"
-									size={25}
-								/>
-								<span className="self-center">2,381.22</span>
-							</div>
+							<EthBalanceText balance={balance} />
 						</div>
 					</div>
 				</>
 			) : (
-				<>
-					<button
-						onClick={() => setConnected(true)}
-						className="bg-[#FE881A] hover:opacity-90 transition text-sm lg:text-lg rounded-3xl pt-2 pb-2 pl-6 pr-6 font-bold"
-					>
-						CONNECT WITH METAMASK
-					</button>
-				</>
+				<ConnectButton setUser={setUser} />
 			)}
 		</header>
 	);
