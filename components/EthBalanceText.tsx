@@ -2,7 +2,7 @@ import React from "react";
 import { FaEthereum } from "react-icons/fa";
 
 interface props {
-    balance: string
+    balance: number
 }
 
 function EthBalanceText({ balance }: props) {
