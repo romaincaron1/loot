@@ -10,6 +10,7 @@ contract Coinflip is Ownable {
 
     event gameCreated(address _gameOwner, uint _amountBet, uint launchedTime);
     event gamePlayed(address _gameOwner, address _playerThatJoined, uint _winnableAmount, address _winner);
+    event MyEvent(address _sender);
 
     enum game_state { WAITING_FOR_OPPONENT, BEING_PLAYED, ENDED }
 
@@ -42,6 +43,10 @@ contract Coinflip is Ownable {
     function widthdrawComission() external onlyOwner {
         require(address(this).balance - totalCurrentAmountBet > 0, "There is no funds to withdraw");
         payable(msg.sender).transfer(address(this).balance - totalCurrentAmountBet);
+    }
+
+    function emitEvent() public {
+        emit MyEvent(msg.sender);
     }
 
     // Create a game
