@@ -1,3 +1,3 @@
-# Loot
+# Client
 
-Online crypto casino made with Nextjs, Typescript, Solidity and Firebase
+Frontend part made with NextJS
